@@ -3,6 +3,8 @@
 Map::Map(int h, int w) : h_block(h / 21), w_block(w / 21) ,
                          leftTeleport(sf::Vector2f(h / 21, w / 21)), rightTeleport(sf::Vector2f(h / 21, w / 21))
 {
+    srand(time(0));
+
     std::string strBlocks[]{
         "111111111111111111111",
         "1         1         1",
@@ -12,18 +14,18 @@ Map::Map(int h, int w) : h_block(h / 21), w_block(w / 21) ,
         "1 11 1    1    1 11 1",
         "1    1111 1 1111    1",
         "1111 1         1 1111",
-        "   1 1 111 111 1 1   ",
-        "1111 1 1     1 1 1111",
+        "0001 1 1110111 1 1000",
+        "1111 1 1000001 1 1111",
         "#      1111111      #",
         "1111 1         1 1111",
-        "   1 1 1111111 1 1   ",
+        "0001 1 1111111 1 1000",
         "1111 1    1    1 1111",
         "1    1111 1 1111    1",
         "1 11             11 1",
         "1 11 1 1111111 1 11 1",
         "1    1    1    1    1",
         "1 1111111 1 1111111 1",
-        "1                   1",
+        "1         0         1",
         "111111111111111111111",
     };
     for (int i = 0; i < 21; i++)
@@ -38,7 +40,12 @@ Map::Map(int h, int w) : h_block(h / 21), w_block(w / 21) ,
                 block.setPosition(j * w_block, i * h_block);
                 blocks.push_back(block);
             }
-            
+            if (strBlocks[i][j] == ' ')
+            {
+                fd::Food food;
+                food.setPosition(j * w_block + (w_block / 2), i * h_block + (h_block / 2));
+                foods.push_back(food);
+            }
         }
     }
     
@@ -48,6 +55,11 @@ Map::Map(int h, int w) : h_block(h / 21), w_block(w / 21) ,
     rightTeleport.setPosition(20 * w_block, 10 * h_block);
 
 
+    setRandomFood(fd::Type::Strength);
+    setRandomFood(fd::Type::Strength);
+    setRandomFood(fd::Type::Strength);
+    setRandomFood(fd::Type::Strength);
+    setRandomFood(fd::Type::Strength);
 }
 
 void Map::draw(sf::RenderWindow & window)
@@ -55,6 +67,11 @@ void Map::draw(sf::RenderWindow & window)
     for (int i = 0; i < blocks.size(); i++)
     {
         window.draw(blocks[i]);
+    }
+    for (int i = 0; i < foods.size(); i++)
+    {
+        if (foods[i].getVisibility())
+            window.draw(foods[i]);
     }
     window.draw(leftTeleport);
     window.draw(rightTeleport);
@@ -69,6 +86,18 @@ int Map::accident(sf::RectangleShape & shape)
             return i;
         }
     }
+    for (int i = 0; i < foods.size(); i++)
+    {
+        if (shape.getGlobalBounds().intersects(foods[i].getGlobalBounds()) && foods[i].getVisibility())
+        {
+            foods[i].setVisibility(false);
+            if (foods[i].getType() == fd::Type::Normal)
+                return -10;
+            if (foods[i].getType() == fd::Type::Strength)
+                return -50;
+            
+        }
+    }
     if (shape.getGlobalBounds().intersects(leftTeleport.getGlobalBounds()))
     {
         shape.setPosition(w_block * 19, h_block * 21 / 2);
@@ -81,4 +110,10 @@ int Map::accident(sf::RectangleShape & shape)
     }
     
     return 0;
+}
+
+void Map::setRandomFood(fd::Type t)
+{
+    int r = rand() / foods.size();
+    foods[r].change(t);
 }

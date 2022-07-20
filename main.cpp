@@ -171,13 +171,18 @@ int main()
         // window.setTitle(std::to_string(static_cast<int>(clock.getElapsedTime().asSeconds())));
         sf::Event event;
         
-        int acc;
-        
-        if (acc = map.accident(pacmann.getShape()))
+        int acc = map.accident(pacmann.getShape());
+        if (acc > 0)
         {
             pacmann.back();
-            window.setTitle(std::to_string(acc));
         }
+        else if (acc < 0)
+        {
+            pacmann.scorePlus(-acc);
+            window.setTitle(std::to_string(pacmann.getScore()));
+        }
+        
+
         while (window.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)

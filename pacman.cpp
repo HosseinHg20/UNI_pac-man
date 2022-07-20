@@ -47,3 +47,12 @@ void Pacman::stop(bool stop)
         move.setenable(true);
     }
 }
+
+void Pacman::scorePlus(int s)
+{
+    score += s;
+}
+int Pacman::getScore()
+{
+    return score;
+}

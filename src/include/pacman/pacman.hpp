@@ -11,6 +11,7 @@ private:
     sf::RectangleShape pacman;
     Animation animation;
     Move move;
+    int score = 0;
 public:
     Pacman(float speed = 0.1, int r = 32);
     
@@ -19,6 +20,8 @@ public:
     void rotate(DIRECTION dir);
     void back();
     void stop(bool stop);
+    void scorePlus(int s);
+    int getScore();
 };
 
 #endif // PACMAN_HPP
