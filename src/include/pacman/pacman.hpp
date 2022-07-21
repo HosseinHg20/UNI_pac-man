@@ -11,7 +11,9 @@ private:
     sf::RectangleShape pacman;
     Animation animation;
     Move move;
+    int hp = 3;
     int score = 0;
+
 public:
     Pacman(float speed = 0.1, int r = 32);
     
@@ -21,7 +23,9 @@ public:
     void back();
     void stop(bool stop);
     void scorePlus(int s);
-    int getScore();
+    int getScore() const;
+    int getHP() const;
+    int subHP();
 };
 
 #endif // PACMAN_HPP

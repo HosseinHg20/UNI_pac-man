@@ -19,11 +19,13 @@ void fd::Food::change(Type t)
     case Type::Strength:
         setOrigin(4, 4);
         setRadius(8);
+        move(-2, -2);
         setFillColor(sf::Color::White);
         break;
     case Type::Apple:
         setOrigin(6, 6);
         setRadius(12);
+        move(-4, -4);
         setTexture(&txtapple);
         break;
     }

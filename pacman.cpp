@@ -52,7 +52,17 @@ void Pacman::scorePlus(int s)
 {
     score += s;
 }
-int Pacman::getScore()
+int Pacman::getScore() const
 {
     return score;
+}
+
+int Pacman::getHP() const
+{
+    return hp;
+}
+int Pacman::subHP()
+{
+    hp--;
+    return hp;
 }

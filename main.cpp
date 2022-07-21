@@ -8,8 +8,29 @@ int main()
 {
     int width = 672;
     int height = 672;
-    sf::RenderWindow window(sf::VideoMode(width, height), "SFML works!");
+    sf::RenderWindow window(sf::VideoMode(width, height + 56), "SFML works!");
     window.setFramerateLimit(60);
+
+    sf::Texture hp;
+    hp.loadFromFile("./images/pacman2.png");
+    sf::CircleShape hp1(16);
+    hp1.setTexture(&hp);
+    hp1.setPosition(width - 128, height + 10);
+    sf::CircleShape hp2(16);
+    hp2.setTexture(&hp);
+    hp2.setPosition(width - 88, height + 10);
+    sf::CircleShape hp3(16);
+    hp3.setTexture(&hp);
+    hp3.setPosition(width - 48, height + 10);
+
+    sf::Font font;
+    if (!font.loadFromFile("./fonts/arial.ttf"))
+        return 0;
+    sf::Text txtscore;
+    txtscore.setString("score : 0");
+    txtscore.setFont(font);
+    txtscore.setPosition(10, height + 10);
+
 
     Pacman pacmann(0.01, height / 42);
     Map map(height, width);
@@ -61,16 +82,21 @@ int main()
             }
         }
 
-
-
-
         pacmann.update();
+        txtscore.setString("score : " + std::to_string(pacmann.getScore()));
 
 
 
         window.clear();
         map.draw(window);
         window.draw(pacmann.getShape());
+        if (pacmann.getHP() > 0)
+            window.draw(hp3);
+        if (pacmann.getHP() > 1)
+            window.draw(hp2);
+        if (pacmann.getHP() > 2)
+            window.draw(hp1);
+        window.draw(txtscore);
         window.display();
     }
 
