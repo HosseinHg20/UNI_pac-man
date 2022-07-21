@@ -3,6 +3,7 @@
 fd::Food::Food() : sf::CircleShape(4)
 {
     change(Type::Normal);
+    txtapple.loadFromFile("./images/apple.png");
 }
 
 void fd::Food::change(Type t)
@@ -11,14 +12,19 @@ void fd::Food::change(Type t)
     switch (t)
     {
     case Type::Normal:
-        setRadius(4);
         setOrigin(2, 2);
+        setRadius(4);
         setFillColor(sf::Color::White);
         break;
     case Type::Strength:
-        setRadius(8);
         setOrigin(4, 4);
+        setRadius(8);
         setFillColor(sf::Color::White);
+        break;
+    case Type::Apple:
+        setOrigin(6, 6);
+        setRadius(12);
+        setTexture(&txtapple);
         break;
     }
 }

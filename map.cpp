@@ -60,6 +60,7 @@ Map::Map(int h, int w) : h_block(h / 21), w_block(w / 21) ,
     setRandomFood(fd::Type::Strength);
     setRandomFood(fd::Type::Strength);
     setRandomFood(fd::Type::Strength);
+    setRandomFood(fd::Type::Apple);
 }
 
 void Map::draw(sf::RenderWindow & window)
@@ -95,6 +96,8 @@ int Map::accident(sf::RectangleShape & shape)
                 return -10;
             if (foods[i].getType() == fd::Type::Strength)
                 return -50;
+            if (foods[i].getType() == fd::Type::Apple)
+                return -100;
             
         }
     }

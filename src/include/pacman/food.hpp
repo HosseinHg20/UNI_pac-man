@@ -13,6 +13,7 @@ class Food : public sf::CircleShape
 private:
     Type type;
     bool visible = true;
+    sf::Texture txtapple;
 public:
     Food();
 
