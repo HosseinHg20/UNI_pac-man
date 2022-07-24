@@ -88,7 +88,7 @@ int main()
         txtscore.setString("score : " + std::to_string(pacmann.getScore()));
 
         // window.setTitle(std::to_string(map.getFoodCounter()) + ", " + std::to_string(map.specialFoodNumber));
-        if (map.getFoodCounter() == 1 || map.getFoodCounter() == 60)
+        if (map.getFoodCounter() == 60 || map.getFoodCounter() == 120)
             map.setRandomFood(fd::Type::Apple);
         map.checkSpecoalFood();
 
