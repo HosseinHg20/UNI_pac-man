@@ -45,7 +45,9 @@ int main()
         else if (acc < 0)
         {
             pacmann.scorePlus(-acc);
-            window.setTitle(std::to_string(pacmann.getScore()));
+            if (acc == -100)
+                pacmann.subHP();
+            window.setTitle(std::to_string(acc));
         }
 
 
@@ -82,8 +84,13 @@ int main()
         }
 
         pacmann.update();
+
         txtscore.setString("score : " + std::to_string(pacmann.getScore()));
 
+        // window.setTitle(std::to_string(map.getFoodCounter()) + ", " + std::to_string(map.specialFoodNumber));
+        if (map.getFoodCounter() == 1 || map.getFoodCounter() == 60)
+            map.setRandomFood(fd::Type::Apple);
+        map.checkSpecoalFood();
 
 
         window.clear();

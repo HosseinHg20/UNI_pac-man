@@ -4,6 +4,7 @@ Map::Map(int h, int w) : h_block(h / 21), w_block(w / 21) ,
                          leftTeleport(sf::Vector2f(h / 21, w / 21)), rightTeleport(sf::Vector2f(h / 21, w / 21))
 {
     srand(time(0));
+    _time = sf::seconds(10);
 
     std::string strBlocks[]{
         "111111111111111111111",
@@ -90,11 +91,14 @@ int Map::accident(sf::RectangleShape & shape)
     {
         if (shape.getGlobalBounds().intersects(foods[i].getGlobalBounds()) && foods[i].getVisibility())
         {
+            foodCounter++;
             foods[i].setVisibility(false);
             if (foods[i].getType() == fd::Type::Normal)
                 return -10;
             if (foods[i].getType() == fd::Type::Strength)
                 return -50;
+            
+            specialFoodNumber = -1;
             if (foods[i].getType() == fd::Type::Apple)
                 return -100;
             
@@ -117,5 +121,31 @@ int Map::accident(sf::RectangleShape & shape)
 void Map::setRandomFood(fd::Type t)
 {
     int r = rand() / foods.size();
-    foods[r].change(t);
+    if (t == fd::Type::Strength)
+    {
+        foods[r].change(t);
+    }
+    else if (specialFoodNumber == -1)
+    {
+        while (!foods[r].getVisibility())
+            r = rand() / foods.size();
+        foods[r].change(t);
+        specialFoodNumber = r;
+        _clock.restart();
+    }
+}
+
+void Map::checkSpecoalFood()
+{
+    if (_clock.getElapsedTime().asSeconds() > _time.asSeconds() && specialFoodNumber != -1)
+    {
+        _clock.restart();
+        foods[specialFoodNumber].change(fd::Type::Normal);
+        specialFoodNumber = -1;
+    }
+}
+
+int Map::getFoodCounter()
+{
+    return foodCounter;
 }
