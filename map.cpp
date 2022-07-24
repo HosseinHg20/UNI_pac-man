@@ -60,7 +60,6 @@ Map::Map(int h, int w) : h_block(h / 21), w_block(w / 21) ,
     setRandomFood(fd::Type::Strength);
     setRandomFood(fd::Type::Strength);
     setRandomFood(fd::Type::Strength);
-    setRandomFood(fd::Type::Apple);
 }
 
 void Map::draw(sf::RenderWindow & window)
@@ -103,13 +102,13 @@ int Map::accident(sf::RectangleShape & shape)
     }
     if (shape.getGlobalBounds().intersects(leftTeleport.getGlobalBounds()))
     {
-        shape.setPosition(w_block * 19, h_block * 21 / 2);
-        return -1;
+        shape.setPosition(w_block * 19 + 16, h_block * 21 / 2);
+        return 0;
     }
     if (shape.getGlobalBounds().intersects(rightTeleport.getGlobalBounds()))
     {
         shape.setPosition(w_block * 2, h_block * 21 / 2);
-        return -1;
+        return 0;
     }
     
     return 0;

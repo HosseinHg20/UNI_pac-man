@@ -31,9 +31,8 @@ int main()
     txtscore.setFont(font);
     txtscore.setPosition(10, height + 10);
 
-
-    Pacman pacmann(0.01, height / 42);
     Map map(height, width);
+    Pacman pacmann(map, 0.01, height / 42);
 
     sf::Clock clock;
     while (window.isOpen())

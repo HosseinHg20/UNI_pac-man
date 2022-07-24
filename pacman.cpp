@@ -1,7 +1,7 @@
 #include <pacman/pacman.hpp>
 
 
-Pacman::Pacman(float speed, int r) : pacman(sf::Vector2f(r * 2 - 2, r * 2 - 2)), animation(&pacman, "./images/pacman1.png", 0.1), move(&pacman, speed / 100)
+Pacman::Pacman(Map & m, float speed, int r) : pacman(sf::Vector2f(r * 2 - 2, r * 2 - 2)), animation(&pacman, "./images/pacman1.png", 0.1), move(m, pacman, speed)
 {
     pacman.setOrigin(r - 1, r - 1);
     pacman.setPosition(336, 624);
@@ -26,7 +26,7 @@ sf::RectangleShape & Pacman::getShape()
 
 void Pacman::rotate(DIRECTION dir)
 {
-    move.rotate(dir);
+    move.setRotate(dir);
 }
 void Pacman::back()
 {

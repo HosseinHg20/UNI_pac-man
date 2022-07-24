@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <pacman/animation.hpp>
 #include <pacman/move.hpp>
+#include <pacman/map.hpp>
 
 class Pacman 
 {
@@ -15,7 +16,7 @@ private:
     int score = 0;
 
 public:
-    Pacman(float speed = 0.1, int r = 32);
+    Pacman(Map & m, float speed = 0.1, int r = 32);
     
     void update();
     sf::RectangleShape & getShape();

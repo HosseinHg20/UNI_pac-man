@@ -2,26 +2,31 @@
 #define MOVE_HPP
 
 #include <SFML/Graphics.hpp>
+#include <pacman/map.hpp>
 
 enum class DIRECTION {LEFT, RIGHT, UP, DOWN};
 
 class Move
 {
 private:
-    sf::Shape * shape;
+    Map & map;
+    sf::RectangleShape & shape;
     sf::Clock clock;
     sf::Time time;
     DIRECTION direction = DIRECTION::RIGHT;
+    DIRECTION changeDirectionTo = DIRECTION::RIGHT;
     sf::Vector2f lastMove;
-    float stepSize = 1.0;
+    float stepSize = 3.0;
     bool enable = false;
+    void rotate();
 public:
-    Move(sf::Shape * sh, float t);
+    Move(Map & m, sf::RectangleShape & sh, float t);
 
     void step();
     void back();
-    void rotate(DIRECTION dir);
+    void setRotate(DIRECTION dir);
     void setenable(bool en);
+    void changeDirection(DIRECTION dir);
 };
 
 #endif // MOVE_HPP
