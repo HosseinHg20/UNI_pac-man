@@ -44,7 +44,7 @@ Map::Map(int h, int w) : h_block(h / 21), w_block(w / 21) ,
             if (strBlocks[i][j] == ' ')
             {
                 fd::Food food;
-                food.setPosition(j * w_block + (w_block / 2), i * h_block + (h_block / 2));
+                food.setPosition(j * w_block + (w_block / 3), i * h_block + (h_block / 3));
                 foods.push_back(food);
             }
         }
@@ -121,17 +121,16 @@ int Map::accident(sf::RectangleShape & shape)
 void Map::setRandomFood(fd::Type t)
 {
     int r = rand() / foods.size();
-    if (t == fd::Type::Strength)
+    if (t == fd::Type::Strength || t == fd::Type::Normal)
     {
         foods[r].change(t);
     }
     else if (specialFoodNumber == -1)
     {
-        while (!foods[r].getVisibility())
-            r = rand() / foods.size();
+        _clock.restart();
+        foods[r].setVisibility(true);
         foods[r].change(t);
         specialFoodNumber = r;
-        _clock.restart();
     }
 }
 
