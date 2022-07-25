@@ -55,6 +55,7 @@ Map::Map(int h, int w) : h_block(h / 21), w_block(w / 21) ,
     rightTeleport.setFillColor(sf::Color::White);
     rightTeleport.setPosition(20 * w_block, 10 * h_block);
 
+    visibleFoods = foods.size();
 
     setRandomFood(fd::Type::Strength);
     setRandomFood(fd::Type::Strength);
@@ -92,6 +93,7 @@ int Map::accident(sf::RectangleShape & shape)
         if (shape.getGlobalBounds().intersects(foods[i].getGlobalBounds()) && foods[i].getVisibility())
         {
             foodCounter++;
+            visibleFoods--;
             foods[i].setVisibility(false);
             if (foods[i].getType() == fd::Type::Normal)
                 return -10;
@@ -111,7 +113,7 @@ int Map::accident(sf::RectangleShape & shape)
     }
     if (shape.getGlobalBounds().intersects(rightTeleport.getGlobalBounds()))
     {
-        shape.setPosition(w_block * 2, h_block * 21 / 2);
+        shape.setPosition(w_block * 2 - 5, h_block * 21 / 2);
         return 0;
     }
     
@@ -127,6 +129,8 @@ void Map::setRandomFood(fd::Type t)
     }
     else if (specialFoodNumber == -1)
     {
+        if (!foods[r].getVisibility())
+            visibleFoods++;
         _clock.restart();
         foods[r].setVisibility(true);
         foods[r].change(t);
@@ -147,4 +151,28 @@ void Map::checkSpecoalFood()
 int Map::getFoodCounter()
 {
     return foodCounter;
+}
+int Map::getVisibleFoods()
+{
+    return visibleFoods;
+}
+
+void Map::restart()
+{
+    for (int i = 0; i < foods.size(); i++)
+    {
+        foods[i].setVisibility(true);
+    }
+    visibleFoods = foods.size();
+
+    setRandomFood(fd::Type::Strength);
+    setRandomFood(fd::Type::Strength);
+    setRandomFood(fd::Type::Strength);
+    setRandomFood(fd::Type::Strength);
+    setRandomFood(fd::Type::Strength);
+    
+    
+    foodCounter = 0;
+    specialFoodNumber = -1;
+    _clock.restart();
 }

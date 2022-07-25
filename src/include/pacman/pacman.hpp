@@ -9,6 +9,7 @@
 class Pacman 
 {
 private:
+    Map & map;
     sf::RectangleShape pacman;
     Animation animation;
     Move move;
@@ -27,6 +28,8 @@ public:
     int getScore() const;
     int getHP() const;
     int subHP();
+    
+    void restart(bool map, bool hp, bool score);
 };
 
 #endif // PACMAN_HPP

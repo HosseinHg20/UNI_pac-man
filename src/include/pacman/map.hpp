@@ -16,6 +16,7 @@ private:
     int h_block;
     int w_block;
     int foodCounter = 0;
+    int visibleFoods = 0;
     int specialFoodNumber = -1;
 public:
     sf::Clock _clock;
@@ -26,6 +27,8 @@ public:
     void setRandomFood(fd::Type t);
     void checkSpecoalFood();
     int getFoodCounter();
+    int getVisibleFoods();
+    void restart();
 };
 
 

@@ -1,7 +1,9 @@
 #include <pacman/pacman.hpp>
 
 
-Pacman::Pacman(Map & m, float speed, int r) : pacman(sf::Vector2f(r * 2 - 2, r * 2 - 2)), animation(&pacman, "./images/pacman1.png", 0.1), move(m, pacman, speed)
+Pacman::Pacman(Map & m, float speed, int r) : pacman(sf::Vector2f(r * 2 - 2, r * 2 - 2)), 
+                                            animation(&pacman, "./images/pacman1.png", 0.1), move(m, pacman, speed),
+                                            map(m)
 {
     pacman.setOrigin(r - 1, r - 1);
     pacman.setPosition(336, 624);
@@ -65,4 +67,17 @@ int Pacman::subHP()
 {
     hp--;
     return hp;
+}
+
+
+void Pacman::restart(bool m, bool h, bool s)
+{
+    pacman.setPosition(336, 624);
+    stop(true);
+    if (m)
+        map.restart();
+    if (h)
+        hp = 3;
+    if (s)
+        score = 0;
 }

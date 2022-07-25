@@ -37,6 +37,9 @@ int main()
     sf::Clock clock;
     while (window.isOpen())
     {
+        if (map.getVisibleFoods() <= 0)
+            pacmann.restart(true, false, false);
+
         int acc = map.accident(pacmann.getShape());
         if (acc > 0)
         {
@@ -81,14 +84,18 @@ int main()
             {
                 pacmann.stop(true);
             }
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+            {
+                pacmann.restart(true, false, false);
+            }
         }
 
         pacmann.update();
 
         txtscore.setString("score : " + std::to_string(pacmann.getScore()));
 
-        window.setTitle(std::to_string(map.getFoodCounter()) + ", " + std::to_string(map._clock.getElapsedTime().asSeconds()));
-        if (map.getFoodCounter() == 60 || map.getFoodCounter() == 120 || map.getFoodCounter() == 190)
+        window.setTitle(std::to_string(map.getFoodCounter()) + ", " + std::to_string(map._clock.getElapsedTime().asSeconds()) + ", " + std::to_string(map.getVisibleFoods()));
+        if (map.getFoodCounter() == 70 || map.getFoodCounter() == 170)
             map.setRandomFood(fd::Type::Apple);
         map.checkSpecoalFood();
 
