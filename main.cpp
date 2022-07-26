@@ -16,6 +16,8 @@ int main()
     window.setFramerateLimit(60);
 
     Menu mainMenu(window);
+    mainMenu.addLabel("stop!", 30, -1, 20, sf::Color::Red);
+    mainMenu.addLabel("press space for pause     :)", 30, -1, 60, sf::Color::Blue);
 
     sf::Texture hp;
     hp.loadFromFile("./images/pacman2.png");

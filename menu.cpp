@@ -11,10 +11,21 @@ Menu::Menu(sf::RenderWindow & w, float size_x, float size_h, sf::Color backColor
     background.setPosition(x_location, h_location);
 }
 
-void Menu::addLabel(std::string text, unsigned int textSize, float location_x, float location_h, sf::Color color)
+
+/**
+ * @brief 
+ * 
+ * @param location_x          use (-1) for centralized label in horizontal
+ * @param location_h          use (-1) for centralized label in vertical
+ */
+void Menu::addLabel(std::string text, unsigned int textSize, float location_x, float location_h, sf::Color color) 
 {
     sf::Text t(text, font);
     t.setCharacterSize(textSize);
+    if (location_x == -1)
+        location_x = (background.getSize().x - (t.getCharacterSize() * text.size() * 17 / 40)) / 2;
+    if (location_h == -1)
+        location_h = (background.getSize().y - t.getCharacterSize()) / 2;
     t.setPosition(location_x + x_location, location_h + h_location);
     t.setFillColor(color);
 
