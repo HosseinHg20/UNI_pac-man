@@ -5,6 +5,7 @@
 #include <pacman/map.hpp>
 #include <pacman/score.hpp>
 #include <pacman/menu.hpp>
+#include <pacman/menuManager.hpp>
 
 int main()
 {
@@ -14,12 +15,14 @@ int main()
     int height = 672;
     sf::RenderWindow window(sf::VideoMode(width, height + 56), "SFML works!");
     window.setFramerateLimit(60);
-
-    Menu mainMenu(window);
-    mainMenu.addLabel("stop!", 30, -1, 10, sf::Color::Red);
-    mainMenu.addButton("Play", 20, -1, 80);
-    mainMenu.addButton("restart game", 20, -1, 120);
-    mainMenu.addButton("exit", 20, -1, 160);
+    
+    MenuManager::Result result = MenuManager::startMenu(window);
+    switch (result)
+    {
+    case MenuManager::Result::Exit:
+        return 0;
+        break;
+    }
 
     sf::Texture hp;
     hp.loadFromFile("./images/pacman2.png");
@@ -43,6 +46,7 @@ int main()
 
     Map map(height, width);
     Pacman pacmann(map, 0.01, height / 42);
+    pacmann.stop(false);
 
     sf::Clock clock;
     while (window.isOpen())
@@ -97,12 +101,12 @@ int main()
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
             {
                 pacmann.stop(false);
-                mainMenu.close();
+                // mainMenu.close();
             }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
             {
                 pacmann.stop(true);
-                mainMenu.open();
+                // mainMenu.open();
             }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
             {
@@ -131,7 +135,7 @@ int main()
         if (pacmann.getHP() > 2)
             window.draw(hp1);
         window.draw(txtscore);
-        mainMenu.draw(window);
+        // mainMenu.draw(window);
         window.display();
     }
 
