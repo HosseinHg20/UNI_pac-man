@@ -93,10 +93,12 @@ int main()
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
             {
                 pacmann.stop(false);
+                mainMenu.close();
             }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
             {
                 pacmann.stop(true);
+                mainMenu.open();
             }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
             {
