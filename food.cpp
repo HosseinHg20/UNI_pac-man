@@ -9,7 +9,7 @@ fd::Food::Food() : sf::CircleShape(4)
 void fd::Food::change(Type t)
 {
     type = t;
-    switch (t)
+    switch (type)
     {
     case Type::Normal:
         // setOrigin(2, 2);

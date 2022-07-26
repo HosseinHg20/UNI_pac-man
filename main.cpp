@@ -60,19 +60,19 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();
 
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
             {
                 pacmann.rotate(DIRECTION::LEFT);
             }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
             {
                 pacmann.rotate(DIRECTION::UP);
             }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
             {
                 pacmann.rotate(DIRECTION::RIGHT);
             }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
             {
                 pacmann.rotate(DIRECTION::DOWN);
             }
@@ -94,7 +94,7 @@ int main()
 
         txtscore.setString("score : " + std::to_string(pacmann.getScore()));
 
-        window.setTitle(std::to_string(map.getFoodCounter()) + ", " + std::to_string(map._clock.getElapsedTime().asSeconds()) + ", " + std::to_string(map.getVisibleFoods()));
+        window.setTitle(std::to_string(map.getFoodCounter()) + ", " + std::to_string(map._clock.getElapsedTime().asSeconds()) + ", " + std::to_string(map.getVisibleFoods()) + ", " + std::to_string(map.specialFoodNumber));
         if (map.getFoodCounter() == 70 || map.getFoodCounter() == 170)
             map.setRandomFood(fd::Type::Apple);
         map.checkSpecoalFood();

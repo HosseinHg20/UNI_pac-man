@@ -17,8 +17,8 @@ private:
     int w_block;
     int foodCounter = 0;
     int visibleFoods = 0;
-    int specialFoodNumber = -1;
 public:
+    int specialFoodNumber = -1;
     sf::Clock _clock;
     Map(int h, int w);
     void draw(sf::RenderWindow & window);
