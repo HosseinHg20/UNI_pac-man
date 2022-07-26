@@ -3,9 +3,12 @@
 #include <pacman/Animation.hpp>
 #include <pacman/pacman.hpp>
 #include <pacman/map.hpp>
+#include <pacman/score.hpp>
 
 int main()
 {
+    int highestScore = memory::getHighestScore();
+
     int width = 672;
     int height = 672;
     sf::RenderWindow window(sf::VideoMode(width, height + 56), "SFML works!");
@@ -38,7 +41,15 @@ int main()
     while (window.isOpen())
     {
         if (map.getVisibleFoods() <= 0)
+        {
             pacmann.restart(true, false, false);
+            if (pacmann.getScore() > highestScore)
+            {
+                highestScore = pacmann.getScore();
+                memory::saveHighestScore(highestScore);
+            }
+            
+        }
 
         int acc = map.accident(pacmann.getShape());
         if (acc > 0)
@@ -94,7 +105,8 @@ int main()
 
         txtscore.setString("score : " + std::to_string(pacmann.getScore()));
 
-        window.setTitle(std::to_string(map.getFoodCounter()) + ", " + std::to_string(map._clock.getElapsedTime().asSeconds()) + ", " + std::to_string(map.getVisibleFoods()) + ", " + std::to_string(map.specialFoodNumber));
+        window.setTitle(std::to_string(map.getFoodCounter()) + ", " + std::to_string(map._clock.getElapsedTime().asSeconds())
+                        + ", " + std::to_string(highestScore) + ", " + std::to_string(map.getVisibleFoods()) + ", " + std::to_string(map.specialFoodNumber));
         if (map.getFoodCounter() == 70 || map.getFoodCounter() == 170)
             map.setRandomFood(fd::Type::Apple);
         map.checkSpecoalFood();
