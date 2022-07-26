@@ -4,6 +4,7 @@
 #include <pacman/pacman.hpp>
 #include <pacman/map.hpp>
 #include <pacman/score.hpp>
+#include <pacman/menu.hpp>
 
 int main()
 {
@@ -13,6 +14,8 @@ int main()
     int height = 672;
     sf::RenderWindow window(sf::VideoMode(width, height + 56), "SFML works!");
     window.setFramerateLimit(60);
+
+    Menu mainMenu(window);
 
     sf::Texture hp;
     hp.loadFromFile("./images/pacman2.png");
@@ -122,6 +125,7 @@ int main()
         if (pacmann.getHP() > 2)
             window.draw(hp1);
         window.draw(txtscore);
+        mainMenu.draw(window);
         window.display();
     }
 
