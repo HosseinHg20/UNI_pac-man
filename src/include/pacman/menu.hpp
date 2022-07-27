@@ -17,7 +17,7 @@ private:
     bool visible = false;
     sf::RectangleShape mouse;
 public:
-    Menu(sf::RenderWindow & w, float size_x = 400, float size_h = 200, sf::Color backColor = sf::Color::White);
+    Menu(sf::RenderWindow & w, float size_x = 400, float size_h = 200, sf::Color backColor = sf::Color::White, sf::Color outline = sf::Color::Red);
     Menu & addLabel(std::string text, unsigned int textSize, float location_x, float location_h, sf::Color color);
     Menu & addButton(std::string text, unsigned int textSize, float location_x, float location_h, sf::Color color);
     void draw(sf::RenderWindow & w);

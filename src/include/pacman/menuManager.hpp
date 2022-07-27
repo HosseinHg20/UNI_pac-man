@@ -10,7 +10,7 @@ namespace MenuManager
 
     Result startMenu(sf::RenderWindow & window)
     {
-        Menu mainMenu(window);
+        Menu mainMenu(window, 400, 200, sf::Color::White, sf::Color::Green);
         mainMenu.addLabel("Welcome back Man :)", 30, -1, 20, sf::Color::Green)
                 .addLabel("best record : " + std::to_string(memory::getHighestScore()), 15, -1, 60, sf::Color::Black)
                 .addButton("play", 20, -1, 110, sf::Color::Black)

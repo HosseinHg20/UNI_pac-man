@@ -56,9 +56,7 @@ int main()
             {
                 pacmann.restart(true, false, false);
                 if (pacmann.getScore() > memory::getHighestScore())
-                {
                     memory::saveHighestScore(pacmann.getScore());
-                }
                 
             }
 

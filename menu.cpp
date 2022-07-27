@@ -1,13 +1,13 @@
 #include <pacman/menu.hpp>
 
-Menu::Menu(sf::RenderWindow & w, float size_x, float size_h, sf::Color backColor) 
+Menu::Menu(sf::RenderWindow & w, float size_x, float size_h, sf::Color backColor, sf::Color outline)
             : window(w), background(sf::Vector2f(size_x, size_h)), x_size(size_x), h_size(size_h), mouse(sf::Vector2f(20, 20))
 {
     font.loadFromFile("./fonts/arial.ttf");
     mouse.setOrigin(10, 10);
 
     background.setFillColor(backColor);
-    background.setOutlineColor(sf::Color::Red);
+    background.setOutlineColor(outline);
     background.setOutlineThickness(5);
     x_location = (w.getSize().x - x_size) / 2;
     h_location = (w.getSize().y - h_size) / 2;
