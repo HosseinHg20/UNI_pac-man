@@ -9,8 +9,6 @@
 
 int main()
 {
-    int highestScore = memory::getHighestScore();
-
     int width = 672;
     int height = 672;
     sf::RenderWindow window(sf::VideoMode(width, height + 56), "SFML works!");
@@ -46,98 +44,106 @@ int main()
 
     Map map(height, width);
     Pacman pacmann(map, 0.01, height / 42);
-    pacmann.stop(false);
 
-    sf::Clock clock;
     while (window.isOpen())
-    {
-        if (map.getVisibleFoods() <= 0)
+    {    
+        sf::Clock clock;
+        bool play = true;
+        pacmann.stop(false);
+        while (window.isOpen() && play)
         {
-            pacmann.restart(true, false, false);
-            if (pacmann.getScore() > highestScore)
-            {
-                highestScore = pacmann.getScore();
-                memory::saveHighestScore(highestScore);
-            }
-            
-        }
-
-        int acc = map.accident(pacmann.getShape());
-        if (acc > 0)
-        {
-            pacmann.back();
-        }
-        else if (acc < 0)
-        {
-            pacmann.scorePlus(-acc);
-            if (acc == -100)
-                pacmann.subHP();
-            // window.setTitle(std::to_string(acc));
-        }
-
-
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-                window.close();
-
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-            {
-                pacmann.rotate(DIRECTION::LEFT);
-            }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-            {
-                pacmann.rotate(DIRECTION::UP);
-            }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-            {
-                pacmann.rotate(DIRECTION::RIGHT);
-            }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-            {
-                pacmann.rotate(DIRECTION::DOWN);
-            }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-            {
-                pacmann.stop(false);
-                // mainMenu.close();
-            }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-            {
-                pacmann.stop(true);
-                // mainMenu.open();
-            }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+            if (map.getVisibleFoods() <= 0)
             {
                 pacmann.restart(true, false, false);
+                if (pacmann.getScore() > memory::getHighestScore())
+                {
+                    memory::saveHighestScore(pacmann.getScore());
+                }
+                
             }
+
+            int acc = map.accident(pacmann.getShape());
+            if (acc > 0)
+            {
+                pacmann.back();
+            }
+            else if (acc < 0)
+            {
+                pacmann.scorePlus(-acc);
+                if (acc == -100)
+                    pacmann.subHP();
+                // window.setTitle(std::to_string(acc));
+            }
+
+
+            sf::Event event;
+            while (window.pollEvent(event))
+            {
+                if (event.type == sf::Event::Closed)
+                    window.close();
+
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+                {
+                    pacmann.rotate(DIRECTION::LEFT);
+                }
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+                {
+                    pacmann.rotate(DIRECTION::UP);
+                }
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+                {
+                    pacmann.rotate(DIRECTION::RIGHT);
+                }
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+                {
+                    pacmann.rotate(DIRECTION::DOWN);
+                }
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+                {
+                    pacmann.stop(true);
+                    play = false;
+                }
+            }
+
+            pacmann.update();
+
+            txtscore.setString("score : " + std::to_string(pacmann.getScore()));
+
+            window.setTitle(std::to_string(map.getFoodCounter()) + ", " + std::to_string(map._clock.getElapsedTime().asSeconds())
+                            + ", " +/* std::to_string(highestScore) + ", " +*/ std::to_string(map.getVisibleFoods()) + ", " + std::to_string(map.specialFoodNumber));
+            if (map.getFoodCounter() == 70 || map.getFoodCounter() == 170)
+                map.setRandomFood(fd::Type::Apple);
+            map.checkSpecoalFood();
+
+
+            window.clear();
+            map.draw(window);
+            window.draw(pacmann.getShape());
+            if (pacmann.getHP() > 0)
+                window.draw(hp3);
+            if (pacmann.getHP() > 1)
+                window.draw(hp2);
+            if (pacmann.getHP() > 2)
+                window.draw(hp1);
+            window.draw(txtscore);
+            // mainMenu.draw(window);
+            window.display();
         }
-
-        pacmann.update();
-
-        txtscore.setString("score : " + std::to_string(pacmann.getScore()));
-
-        window.setTitle(std::to_string(map.getFoodCounter()) + ", " + std::to_string(map._clock.getElapsedTime().asSeconds())
-                        + ", " + std::to_string(highestScore) + ", " + std::to_string(map.getVisibleFoods()) + ", " + std::to_string(map.specialFoodNumber));
-        if (map.getFoodCounter() == 70 || map.getFoodCounter() == 170)
-            map.setRandomFood(fd::Type::Apple);
-        map.checkSpecoalFood();
-
-
-        window.clear();
-        map.draw(window);
-        window.draw(pacmann.getShape());
-        if (pacmann.getHP() > 0)
-            window.draw(hp3);
-        if (pacmann.getHP() > 1)
-            window.draw(hp2);
-        if (pacmann.getHP() > 2)
-            window.draw(hp1);
-        window.draw(txtscore);
-        // mainMenu.draw(window);
-        window.display();
+        result = MenuManager::stopMenu(window);
+        switch (result)
+        {
+        case MenuManager::Result::Exit:
+            return 0;
+            break;
+        case MenuManager::Result::Resume:
+            play = true;
+            break;
+        case MenuManager::Result::NewGame:
+            pacmann.restart(true, true, true);
+            play = true;
+            pacmann.rotate(DIRECTION::RIGHT);
+            break;
+        }
     }
-
     return 0;
 }

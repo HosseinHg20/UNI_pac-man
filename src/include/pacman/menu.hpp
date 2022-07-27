@@ -16,11 +16,10 @@ private:
     float x_size, h_size;
     bool visible = false;
     sf::RectangleShape mouse;
-
 public:
     Menu(sf::RenderWindow & w, float size_x = 400, float size_h = 200, sf::Color backColor = sf::Color::White);
-    void addLabel(std::string text, unsigned int textSize, float location_x, float location_h, sf::Color color);
-    void addButton(std::string text, unsigned int textSize, float location_x, float location_h);
+    Menu & addLabel(std::string text, unsigned int textSize, float location_x, float location_h, sf::Color color);
+    Menu & addButton(std::string text, unsigned int textSize, float location_x, float location_h, sf::Color color);
     void draw(sf::RenderWindow & w);
 
     int clicked(int x, int h);

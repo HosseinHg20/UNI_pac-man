@@ -21,7 +21,7 @@ Menu::Menu(sf::RenderWindow & w, float size_x, float size_h, sf::Color backColor
  * @param location_x          use (-1) for centralized label in horizontal
  * @param location_h          use (-1) for centralized label in vertical
  */
-void Menu::addLabel(std::string text, unsigned int textSize, float location_x, float location_h, sf::Color color) 
+Menu & Menu::addLabel(std::string text, unsigned int textSize, float location_x, float location_h, sf::Color color) 
 {
     sf::Text t(text, font);
     t.setCharacterSize(textSize);
@@ -34,6 +34,7 @@ void Menu::addLabel(std::string text, unsigned int textSize, float location_x, f
     t.setFillColor(color);
 
     labels.push_back(t);
+    return *this;
 }
 
 /**
@@ -42,7 +43,7 @@ void Menu::addLabel(std::string text, unsigned int textSize, float location_x, f
  * @param location_x          use (-1) for centralized label in horizontal
  * @param location_h          use (-1) for centralized label in vertical
  */
-void Menu::addButton(std::string text, unsigned int textSize, float location_x, float location_h)
+Menu & Menu::addButton(std::string text, unsigned int textSize, float location_x, float location_h, sf::Color color)
 {
     sf::Text t(text, font);
     t.setCharacterSize(textSize);
@@ -52,13 +53,10 @@ void Menu::addButton(std::string text, unsigned int textSize, float location_x, 
         location_h = (background.getSize().y - t.getCharacterSize()) / 2;
     t.setPosition(location_x + x_location, location_h + h_location);
     
-    if (buttons.size() == 0)
-        t.setFillColor(sf::Color::Black);
-    else
-        t.setFillColor(sf::Color::Blue);
-
+    t.setFillColor(color);
     buttons.push_back(t);
 
+    return *this;
 }
 
 void Menu::draw(sf::RenderWindow & w)
