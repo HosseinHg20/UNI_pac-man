@@ -73,6 +73,7 @@ int Pacman::subHP()
 void Pacman::restart(bool m, bool h, bool s)
 {
     pacman.setPosition(336, 624);
+    rotate(DIRECTION::RIGHT);
     stop(true);
     if (m)
         map.restart();
