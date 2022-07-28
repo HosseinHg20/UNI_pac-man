@@ -11,6 +11,7 @@ Ghost::Ghost(Map & m, float s) : ghost(sf::Vector2f(28, 28))
 
 Ghost::~Ghost()
 {
+    delete animation;
 }
 
 void Ghost::changeAnimationStatus(AnimationStatus a)

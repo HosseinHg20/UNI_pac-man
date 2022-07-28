@@ -21,7 +21,6 @@ private:
 public:
     Ghost(Map & map, float speed);
     ~Ghost();
-    void addNewGhost();
     void changeAnimationStatus(AnimationStatus animationStatus);
 
     void update();
