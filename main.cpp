@@ -6,6 +6,9 @@
 #include <pacman/score.hpp>
 #include <pacman/menu.hpp>
 #include <pacman/menuManager.hpp>
+// #include <pacman/ghosts.hpp>
+#include <pacman/ghost.hpp>
+
 
 int main()
 {
@@ -44,6 +47,9 @@ int main()
 
     Map map(height, width);
     Pacman pacmann(map, 0.01, height / 42);
+
+    // GhostsManager ghosts(map);
+    Ghost ghost(map, 0.01);
 
     while (window.isOpen())
     {    
@@ -116,6 +122,14 @@ int main()
                     {
                         pacmann.rotate(DIRECTION::DOWN);
                     }
+                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::L))
+                    {
+                        ghost.changeAnimationStatus(AnimationStatus::Right);
+                    }
+                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::K))
+                    {
+                        ghost.changeAnimationStatus(AnimationStatus::Left);
+                    }
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
                     {
                         result = MenuManager::stopMenu(window);
@@ -136,6 +150,7 @@ int main()
                 }
 
                 pacmann.update();
+                ghost.update();
 
                 txtscore.setString("score : " + std::to_string(pacmann.getScore()));
 
@@ -147,6 +162,8 @@ int main()
 
 
                 window.clear();
+                // ghosts.draw(window);
+                window.draw(ghost.getShape());
                 map.draw(window);
                 window.draw(pacmann.getShape());
                 if (pacmann.getHP() > 0)
