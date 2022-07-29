@@ -22,7 +22,7 @@ public:
     sf::Clock _clock;
     Map(int h, int w);
     void draw(sf::RenderWindow & window);
-    int accident(sf::RectangleShape & shape);
+    int accident(sf::RectangleShape & shape, bool ghost = false);
 
     void setRandomFood(fd::Type t);
     void checkSpecoalFood();

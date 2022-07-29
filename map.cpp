@@ -79,7 +79,7 @@ void Map::draw(sf::RenderWindow & window)
     window.draw(rightTeleport);
 }
 
-int Map::accident(sf::RectangleShape & shape)
+int Map::accident(sf::RectangleShape & shape, bool ghost)
 {
     for (int i = 0; i < blocks.size(); i++)
     {
@@ -88,6 +88,20 @@ int Map::accident(sf::RectangleShape & shape)
             return i;
         }
     }
+    if (shape.getGlobalBounds().intersects(leftTeleport.getGlobalBounds()))
+    {
+        shape.setPosition(w_block * 19 + 16, h_block * 21 / 2);
+        return 0;
+    }
+    if (shape.getGlobalBounds().intersects(rightTeleport.getGlobalBounds()))
+    {
+        shape.setPosition(w_block * 2 - 5, h_block * 21 / 2);
+        return 0;
+    }
+
+    if (ghost)
+        return 0;
+
     for (int i = 0; i < foods.size(); i++)
     {
         if (shape.getGlobalBounds().intersects(foods[i].getGlobalBounds()) && foods[i].getVisibility())
@@ -105,16 +119,6 @@ int Map::accident(sf::RectangleShape & shape)
                 return -100;
             
         }
-    }
-    if (shape.getGlobalBounds().intersects(leftTeleport.getGlobalBounds()))
-    {
-        shape.setPosition(w_block * 19 + 16, h_block * 21 / 2);
-        return 0;
-    }
-    if (shape.getGlobalBounds().intersects(rightTeleport.getGlobalBounds()))
-    {
-        shape.setPosition(w_block * 2 - 5, h_block * 21 / 2);
-        return 0;
     }
     
     return 0;
