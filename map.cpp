@@ -16,7 +16,7 @@ Map::Map(int h, int w) : h_block(h / 21), w_block(w / 21) ,
         "1111 1         1 1111",
         "0001 1 1110111 1 1000",
         "1111 1 1000001 1 1111",
-        "#      1111111      #",
+        "#***   1111111   ***#",
         "1111 1         1 1111",
         "0001 1 1111111 1 1000",
         "1111 1    1    1 1111",
@@ -89,12 +89,12 @@ int Map::accident(sf::RectangleShape & shape, bool ghost)
     }
     if (shape.getGlobalBounds().intersects(leftTeleport.getGlobalBounds()))
     {
-        shape.setPosition(w_block * 19 + 10, h_block * 21 / 2);
+        shape.setPosition(w_block * 19, h_block * 21 / 2);
         return 0;
     }
     if (shape.getGlobalBounds().intersects(rightTeleport.getGlobalBounds()))
     {
-        shape.setPosition(w_block * 2 - 5, h_block * 21 / 2);
+        shape.setPosition(w_block * 3, h_block * 21 / 2);
         return 0;
     }
 
