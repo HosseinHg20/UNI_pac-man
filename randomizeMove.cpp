@@ -17,5 +17,12 @@ void RandomizeMove::step()
     {
         clock.restart();
         shape.move(lastMove);
+        if (map.accident(shape, true))
+            back();
     }
+}
+
+void RandomizeMove::back()
+{
+    shape.move(-lastMove);
 }

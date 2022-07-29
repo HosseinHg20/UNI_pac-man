@@ -20,6 +20,7 @@ public:
     ~RandomizeMove();
 
     void step();
+    void back();
 };
 
 
