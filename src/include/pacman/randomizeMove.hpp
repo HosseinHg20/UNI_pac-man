@@ -3,6 +3,9 @@
 
 #include <SFML/Graphics.hpp>
 #include <pacman/map.hpp>
+#include <vector>
+
+enum class _DIRECTION {LEFT, RIGHT, UP, DOWN};
 
 class RandomizeMove
 {
@@ -11,9 +14,9 @@ private:
     sf::RectangleShape & shape;
     sf::Clock clock;
     sf::Time time;
-
+    _DIRECTION _direction = _DIRECTION::UP;
     sf::Vector2f lastMove;
-    float stepSize = 3.0;
+    float stepSize = 4.0;
     bool enable = true;
 public:
     RandomizeMove(Map & map, sf::RectangleShape & shape, float time);
@@ -21,6 +24,8 @@ public:
 
     void step();
     void back();
+    std::vector<_DIRECTION> checkRotation();
+    void rotate();
 };
 
 

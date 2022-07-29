@@ -3,7 +3,6 @@
 Map::Map(int h, int w) : h_block(h / 21), w_block(w / 21) ,
                          leftTeleport(sf::Vector2f(h / 21, w / 21)), rightTeleport(sf::Vector2f(h / 21, w / 21))
 {
-    srand(time(0));
     _time = sf::seconds(10);
 
     std::string strBlocks[]{

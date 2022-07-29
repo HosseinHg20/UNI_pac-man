@@ -12,6 +12,8 @@
 
 int main()
 {
+    srand(time(0));
+    
     int width = 672;
     int height = 672;
     sf::RenderWindow window(sf::VideoMode(width, height + 56), "SFML works!");
