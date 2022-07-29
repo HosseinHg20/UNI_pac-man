@@ -12,7 +12,7 @@ RandomizeMove::~RandomizeMove()
 
 }
 
-void RandomizeMove::step()
+_DIRECTION RandomizeMove::step()
 {
     if (clock.getElapsedTime().asSeconds() > time.asSeconds() && enable)
     {
@@ -20,7 +20,7 @@ void RandomizeMove::step()
         shape.move(lastMove);
         if (map.accident(shape, true))
             back();
-        rotate();
+        return rotate();
     }
 }
 
@@ -63,7 +63,7 @@ std::vector<_DIRECTION> RandomizeMove::checkRotation()
     return result;
 }
 
-void RandomizeMove::rotate()
+_DIRECTION RandomizeMove::rotate()
 {
     std::vector<_DIRECTION> canRotate = checkRotation();
     switch (_direction)
@@ -106,7 +106,7 @@ void RandomizeMove::rotate()
     if (canRotate.size() == 0)
         lastMove = -lastMove;
     else if (canRotate.size() == 1 && canRotate[0] == _direction)
-        return;
+        return _direction;
     else
     {
         int random_Direction = rand() % canRotate.size();
@@ -115,18 +115,22 @@ void RandomizeMove::rotate()
         case _DIRECTION::RIGHT:
             lastMove = sf::Vector2f(stepSize, 0);
             _direction = _DIRECTION::RIGHT;
+            return _DIRECTION::RIGHT;
             break;
         case _DIRECTION::LEFT:
             lastMove = sf::Vector2f(-stepSize, 0);
             _direction = _DIRECTION::LEFT;
+            return _DIRECTION::LEFT;
             break;
         case _DIRECTION::UP:
             lastMove = sf::Vector2f(0, -stepSize);
             _direction = _DIRECTION::UP;
+            return _DIRECTION::UP;
             break;
         case _DIRECTION::DOWN:
             lastMove = sf::Vector2f(0, stepSize);
             _direction = _DIRECTION::DOWN;
+            return _DIRECTION::DOWN;
             break;
         }
     }

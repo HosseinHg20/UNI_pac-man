@@ -37,7 +37,11 @@ void Ghost::changeAnimationStatus(AnimationStatus a)
 void Ghost::update()
 {
     animation->update();
-    move.step();
+    _DIRECTION d = move.step();
+    if (d == _DIRECTION::LEFT)
+        changeAnimationStatus(AnimationStatus::Left);
+    else if (d == _DIRECTION::RIGHT)
+        changeAnimationStatus(AnimationStatus::Right);
 }
 
 

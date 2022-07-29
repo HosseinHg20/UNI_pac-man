@@ -22,10 +22,10 @@ public:
     RandomizeMove(Map & map, sf::RectangleShape & shape, float time);
     ~RandomizeMove();
 
-    void step();
+    _DIRECTION step();
     void back();
     std::vector<_DIRECTION> checkRotation();
-    void rotate();
+    _DIRECTION rotate();
 };
 
 
