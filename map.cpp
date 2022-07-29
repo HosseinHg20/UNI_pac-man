@@ -89,7 +89,7 @@ int Map::accident(sf::RectangleShape & shape, bool ghost)
     }
     if (shape.getGlobalBounds().intersects(leftTeleport.getGlobalBounds()))
     {
-        shape.setPosition(w_block * 19 + 16, h_block * 21 / 2);
+        shape.setPosition(w_block * 19 + 10, h_block * 21 / 2);
         return 0;
     }
     if (shape.getGlobalBounds().intersects(rightTeleport.getGlobalBounds()))
