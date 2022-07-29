@@ -37,6 +37,7 @@ void Ghost::changeAnimationStatus(AnimationStatus a)
 void Ghost::update()
 {
     animation->update();
+    move.step();
 }
 
 

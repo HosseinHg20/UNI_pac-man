@@ -3,7 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <pacman/animation.hpp>
-#include <pacman/move.hpp>
+#include <pacman/randomizeMove.hpp>
 #include <pacman/map.hpp>
 #include <pacman/ghostAnimations.hpp>
 #include <vector>
@@ -17,7 +17,7 @@ private:
     sf::RectangleShape ghost;
     Animation * animation;
     AnimationStatus animationStatus = AnimationStatus::Right;
-    Move move;
+    RandomizeMove move;
 public:
     Ghost(Map & map, float speed);
     ~Ghost();
