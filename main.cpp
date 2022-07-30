@@ -8,6 +8,7 @@
 #include <pacman/menuManager.hpp>
 // #include <pacman/ghosts.hpp>
 #include <pacman/ghost.hpp>
+#include <pacman/ghostManager.hpp>
 
 
 int main()
@@ -51,7 +52,9 @@ int main()
     Pacman pacmann(map, 0.01, height / 42);
 
     // GhostsManager ghosts(map);
-    Ghost ghost(map, 0.01);
+    // Ghost ghost(map, 0.01);
+    GhostManager ghosts;
+    ghosts.addGhost(map);
 
     while (window.isOpen())
     {    
@@ -144,7 +147,8 @@ int main()
                 }
 
                 pacmann.update();
-                ghost.update();
+                // ghost.update();
+                ghosts.update();
 
                 txtscore.setString("score : " + std::to_string(pacmann.getScore()));
 
@@ -157,7 +161,8 @@ int main()
 
                 window.clear();
                 // ghosts.draw(window);
-                window.draw(ghost.getShape());
+                // window.draw(ghost.getShape());
+                ghosts.draw(window);
                 map.draw(window);
                 window.draw(pacmann.getShape());
                 if (pacmann.getHP() > 0)

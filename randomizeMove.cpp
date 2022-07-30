@@ -66,39 +66,39 @@ std::vector<_DIRECTION> RandomizeMove::checkRotation()
 _DIRECTION RandomizeMove::rotate()
 {
     std::vector<_DIRECTION> canRotate = checkRotation();
-    switch (_direction)
-    {
-    case _DIRECTION::RIGHT:
-        std::cout << "\nDirection : right\n";
-        break;
-    case _DIRECTION::LEFT:
-        std::cout << "\nDirection : left\n";
-        break;
-    case _DIRECTION::UP:
-        std::cout << "\nDirection : up\n";
-        break;
-    case _DIRECTION::DOWN:
-        std::cout << "\nDirection : down\n";
-        break;
-    }
-    for (int i = 0; i < canRotate.size(); i++) // test
-    {
-        switch (canRotate[i])
-        {
-        case _DIRECTION::RIGHT:
-            std::cout << " - right - ";
-            break;
-        case _DIRECTION::LEFT:
-            std::cout << " - left - ";
-            break;
-        case _DIRECTION::UP:
-            std::cout << " - up - ";
-            break;
-        case _DIRECTION::DOWN:
-            std::cout << " - down - ";
-            break;
-        }
-    }
+    // switch (_direction)
+    // {
+    // case _DIRECTION::RIGHT:
+    //     std::cout << "\nDirection : right\n";
+    //     break;
+    // case _DIRECTION::LEFT:
+    //     std::cout << "\nDirection : left\n";
+    //     break;
+    // case _DIRECTION::UP:
+    //     std::cout << "\nDirection : up\n";
+    //     break;
+    // case _DIRECTION::DOWN:
+    //     std::cout << "\nDirection : down\n";
+    //     break;
+    // }
+    // for (int i = 0; i < canRotate.size(); i++) // test
+    // {
+    //     switch (canRotate[i])
+    //     {
+    //     case _DIRECTION::RIGHT:
+    //         std::cout << " - right - ";
+    //         break;
+    //     case _DIRECTION::LEFT:
+    //         std::cout << " - left - ";
+    //         break;
+    //     case _DIRECTION::UP:
+    //         std::cout << " - up - ";
+    //         break;
+    //     case _DIRECTION::DOWN:
+    //         std::cout << " - down - ";
+    //         break;
+    //     }
+    // }
     // getchar();// test
     
 
