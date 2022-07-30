@@ -124,14 +124,6 @@ int main()
                     {
                         pacmann.rotate(DIRECTION::DOWN);
                     }
-                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::L))
-                    {
-                        ghost.changeAnimationStatus(AnimationStatus::Right);
-                    }
-                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::K))
-                    {
-                        ghost.changeAnimationStatus(AnimationStatus::Left);
-                    }
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
                     {
                         result = MenuManager::stopMenu(window);

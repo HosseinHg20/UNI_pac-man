@@ -34,31 +34,31 @@ std::vector<_DIRECTION> RandomizeMove::checkRotation()
 {
     std::vector<_DIRECTION> result;
 
-    shape.move(sf::Vector2f(10, 0));
+    shape.move(sf::Vector2f(4, 0));
     if (!map.accident(shape, true) && _direction != _DIRECTION::LEFT)
         result.push_back(_DIRECTION::RIGHT);
     // shape.move(sf::Vector2f(-10, 0));
 
-    shape.move(sf::Vector2f(-20, 0));
+    shape.move(sf::Vector2f(-8, 0));
 
     // shape.move(sf::Vector2f(-10, 0));
     if (!map.accident(shape, true) && _direction != _DIRECTION::RIGHT)
         result.push_back(_DIRECTION::LEFT);
     // shape.move(sf::Vector2f(10, 0));
     
-    shape.move(sf::Vector2f(10, 10));
+    shape.move(sf::Vector2f(4, 4));
 
     // shape.move(sf::Vector2f(0, 6));
     if (!map.accident(shape, true) && _direction != _DIRECTION::UP)
         result.push_back(_DIRECTION::DOWN);
     // shape.move(sf::Vector2f(0, -6));
 
-    shape.move(sf::Vector2f(0, -20));
+    shape.move(sf::Vector2f(0, -8));
 
     // shape.move(sf::Vector2f(0, -6));
     if (!map.accident(shape, true) && _direction != _DIRECTION::DOWN)
         result.push_back(_DIRECTION::UP);
-    shape.move(sf::Vector2f(0, 10));
+    shape.move(sf::Vector2f(0, 4));
     
     return result;
 }

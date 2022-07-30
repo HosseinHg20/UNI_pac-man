@@ -1,7 +1,7 @@
 #include <pacman/map.hpp>
 
 Map::Map(int h, int w) : h_block(h / 21), w_block(w / 21) ,
-                         leftTeleport(sf::Vector2f(h / 21, w / 21)), rightTeleport(sf::Vector2f(h / 21, w / 21))
+                         leftTeleport(sf::Vector2f(h / 21, w / 21)), rightTeleport(sf::Vector2f(h / 21, w / 21)), door(sf::Vector2f(h / 21, 11))
 {
     _time = sf::seconds(10);
 
@@ -14,7 +14,7 @@ Map::Map(int h, int w) : h_block(h / 21), w_block(w / 21) ,
         "1 11 1    1    1 11 1",
         "1    1111 1 1111    1",
         "1111 1         1 1111",
-        "0001 1 1110111 1 1000",
+        "0001 1 111!111 1 1000",
         "1111 1 1000001 1 1111",
         "#***   1111111   ***#",
         "1111 1         1 1111",
@@ -45,7 +45,7 @@ Map::Map(int h, int w) : h_block(h / 21), w_block(w / 21) ,
                 fd::Food food;
                 food.setPosition(j * w_block + (w_block / 3), i * h_block + (h_block / 3));
                 foods.push_back(food);
-            }
+            }            
         }
     }
     
@@ -53,6 +53,10 @@ Map::Map(int h, int w) : h_block(h / 21), w_block(w / 21) ,
     leftTeleport.setPosition(0 * w_block, 10 * h_block);
     rightTeleport.setFillColor(sf::Color::White);
     rightTeleport.setPosition(20 * w_block, 10 * h_block);
+
+    door.setFillColor(sf::Color::Red);
+    door.setPosition(10 * w_block, 8 * h_block);
+
 
     visibleFoods = foods.size();
 
@@ -76,6 +80,7 @@ void Map::draw(sf::RenderWindow & window)
     }
     window.draw(leftTeleport);
     window.draw(rightTeleport);
+    window.draw(door);
 }
 
 int Map::accident(sf::RectangleShape & shape, bool ghost)
@@ -96,6 +101,10 @@ int Map::accident(sf::RectangleShape & shape, bool ghost)
     {
         shape.setPosition(w_block * 3, h_block * 21 / 2);
         return 0;
+    }
+    if (shape.getGlobalBounds().intersects(door.getGlobalBounds()))
+    {
+        return 1000;
     }
 
     if (ghost)

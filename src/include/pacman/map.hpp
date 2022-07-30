@@ -12,6 +12,7 @@ private:
     std::vector<fd::Food> foods;
     sf::RectangleShape leftTeleport;
     sf::RectangleShape rightTeleport;
+    sf::RectangleShape door;
     sf::Time _time;
     int h_block;
     int w_block;
