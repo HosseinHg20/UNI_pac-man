@@ -72,8 +72,8 @@ int main()
                     if (pacmann.getScore() > memory::getHighestScore())
                         memory::saveHighestScore(pacmann.getScore());
                     result = MenuManager::endMenu(window, pacmann.getScore());
+                    ghosts.restart();
                     return;
-                    
                 }
 
                 int acc = map.accident(pacmann.getShape());
@@ -150,6 +150,7 @@ int main()
                             break;
                         case MenuManager::Result::NewGame:
                             pacmann.restart(true, true, true);
+                            ghosts.restart();
                             return;
                             break;
                         }
