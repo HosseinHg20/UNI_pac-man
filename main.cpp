@@ -53,8 +53,11 @@ int main()
 
     // GhostsManager ghosts(map);
     // Ghost ghost(map, 0.01);
-    GhostManager ghosts;
-    ghosts.addGhost(map); 
+    GhostManager ghosts(map);
+    ghosts.addGhost(); 
+    ghosts.addGhost(); 
+    ghosts.addGhost(); 
+    ghosts.addGhost(); 
 
     while (window.isOpen())
     {    
@@ -87,6 +90,7 @@ int main()
                 if (acc)
                 {
                     pacmann.backToHome();
+                    ghosts.restart();
                     if (pacmann.subHP() < 0)
                     {
                         if (pacmann.getScore() > memory::getHighestScore())
@@ -96,6 +100,7 @@ int main()
                         {
                         case MenuManager::Result::NewGame:
                             pacmann.restart(true, true, true);
+                            ghosts.restart();
                             return;
                             break;
                         case MenuManager::Result::Exit:
@@ -130,7 +135,7 @@ int main()
                     }
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
                     {
-                        ghosts.addGhost(map);
+                        ghosts.addGhost();
                     }
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
                     {

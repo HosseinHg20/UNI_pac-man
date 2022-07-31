@@ -9,10 +9,12 @@ class GhostManager
 {
 private:
     std::vector<Ghost *> ghost;
+    Map & map;
 public:
-    void addGhost(Map & m)
+    GhostManager(Map & m) : map(m) {}
+    void addGhost()
     {
-        Ghost * g = new Ghost(m, 0.01);
+        Ghost * g = new Ghost(map, 0.01);
         ghost.push_back(g);
     }
     void update()
@@ -31,6 +33,14 @@ public:
             if (shape.getGlobalBounds().intersects(ghost[i]->getShape().getGlobalBounds()))
                 return i + 1;
         return 0;
+    }
+    void restart()
+    {
+        for (int i = 0; i < ghost.size(); i++)
+        {
+            delete ghost[i];
+            ghost[i] = new Ghost(map, 0.01);
+        }
     }
     ~GhostManager()
     {
