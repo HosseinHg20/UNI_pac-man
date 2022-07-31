@@ -18,6 +18,9 @@ private:
     Animation * animation;
     AnimationStatus animationStatus = AnimationStatus::Right;
     RandomizeMove move;
+    sf::Clock clock;
+    sf::Time ScaredTime = sf::seconds(10);
+    sf::Time DiedTime = sf::seconds(5);
 public:
     Ghost(Map & map, float speed);
     ~Ghost();

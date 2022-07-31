@@ -16,6 +16,8 @@ Ghost::~Ghost()
 
 void Ghost::changeAnimationStatus(AnimationStatus a)
 {
+    if (a == AnimationStatus::Scared)
+        clock.restart();
     if (a == animationStatus)
         return;
 
@@ -32,7 +34,7 @@ void Ghost::changeAnimationStatus(AnimationStatus a)
     case AnimationStatus::Scared:
         animation = new ScaredAnimation(ghost);
         break;
-    case AnimationStatus::DiedRigh:
+    case AnimationStatus::DiedRight:
         animation = new RightDiedAnimation(ghost);
         break;
     case AnimationStatus::DiedLeft:
@@ -46,11 +48,20 @@ void Ghost::changeAnimationStatus(AnimationStatus a)
 void Ghost::update()
 {
     animation->update();
+
+    if (animationStatus == AnimationStatus::Scared)
+        if (clock.getElapsedTime().asSeconds() > ScaredTime.asSeconds())
+            changeAnimationStatus(AnimationStatus::Right);
+
     _DIRECTION d = move.step();
-    if (d == _DIRECTION::LEFT)
-        changeAnimationStatus(AnimationStatus::Left);
-    else if (d == _DIRECTION::RIGHT)
-        changeAnimationStatus(AnimationStatus::Right);
+    if (animationStatus == AnimationStatus::Left || animationStatus == AnimationStatus::Right)
+    {
+        if (d == _DIRECTION::LEFT)
+            changeAnimationStatus(AnimationStatus::Left);
+        else if (d == _DIRECTION::RIGHT)
+            changeAnimationStatus(AnimationStatus::Right);
+    }
+    
 }
 
 

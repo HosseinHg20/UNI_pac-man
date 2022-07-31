@@ -85,6 +85,8 @@ int main()
                 {
                     pacmann.scorePlus(-acc);
                     // window.setTitle(std::to_string(acc));
+                    if (acc == -50)
+                        ghosts.setScare();
                 }
                 acc = ghosts.accident(pacmann.getShape());
                 if (acc)

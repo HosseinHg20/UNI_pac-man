@@ -42,6 +42,11 @@ public:
             ghost[i] = new Ghost(map, 0.01);
         }
     }
+    void setScare()
+    {
+        for (int i = 0; i < ghost.size(); i++)
+            ghost[i]->changeAnimationStatus(AnimationStatus::Scared);
+    }
     ~GhostManager()
     {
         for (int i = 0; i < ghost.size(); i++)
