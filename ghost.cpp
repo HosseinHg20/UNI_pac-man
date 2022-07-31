@@ -69,3 +69,9 @@ sf::RectangleShape Ghost::getShape()
 {
     return ghost;
 }
+
+
+AnimationStatus Ghost::getStatus()
+{
+    return animationStatus;
+}

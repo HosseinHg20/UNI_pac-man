@@ -89,7 +89,7 @@ int main()
                         ghosts.setScare();
                 }
                 acc = ghosts.accident(pacmann.getShape());
-                if (acc)
+                if (acc > 0)
                 {
                     pacmann.backToHome();
                     ghosts.restart();
@@ -111,6 +111,12 @@ int main()
                             break;
                         }
                     }
+                }
+                else if (acc < 0)
+                {
+                    ghosts.backToHome(-acc);
+                    pacmann.scorePlus(200);
+
                 }
 
                 sf::Event event;

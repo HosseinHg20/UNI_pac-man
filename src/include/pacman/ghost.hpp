@@ -28,6 +28,7 @@ public:
 
     void update();
     sf::RectangleShape getShape();
+    AnimationStatus getStatus();
 };
 
 

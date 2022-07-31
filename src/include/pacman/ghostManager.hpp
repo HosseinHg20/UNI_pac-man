@@ -31,8 +31,18 @@ public:
     {
         for (int i = 0; i < ghost.size(); i++)
             if (shape.getGlobalBounds().intersects(ghost[i]->getShape().getGlobalBounds()))
-                return i + 1;
+                if (ghost[i]->getStatus() == AnimationStatus::Scared)
+                    return -(i + 1);
+                else if (ghost[i]->getStatus() == AnimationStatus::DiedLeft || ghost[i]->getStatus() == AnimationStatus::DiedRight)
+                    return 0;
+                else
+                    return (i + 1);
         return 0;
+    }
+    void backToHome(int number)
+    {
+        delete ghost[number - 1];
+        ghost[number - 1] = new Ghost(map, 0.01);
     }
     void restart()
     {
