@@ -81,29 +81,30 @@ int main()
                 else if (acc < 0)
                 {
                     pacmann.scorePlus(-acc);
-                    if (acc == -100)
-                    {
-                        if (pacmann.subHP() < 0)
-                        {
-                            if (pacmann.getScore() > memory::getHighestScore())
-                                memory::saveHighestScore(pacmann.getScore());
-                            result = MenuManager::lostMenu(window, pacmann.getScore());
-                            switch (result)
-                            {
-                            case MenuManager::Result::NewGame:
-                                pacmann.restart(true, true, true);
-                                return;
-                                break;
-                            case MenuManager::Result::Exit:
-                                window.close();
-                                return;
-                                break;
-                            }
-                        }
-                    }
                     // window.setTitle(std::to_string(acc));
                 }
-
+                acc = ghosts.accident(pacmann.getShape());
+                if (acc)
+                {
+                    pacmann.backToHome();
+                    if (pacmann.subHP() < 0)
+                    {
+                        if (pacmann.getScore() > memory::getHighestScore())
+                            memory::saveHighestScore(pacmann.getScore());
+                        result = MenuManager::lostMenu(window, pacmann.getScore());
+                        switch (result)
+                        {
+                        case MenuManager::Result::NewGame:
+                            pacmann.restart(true, true, true);
+                            return;
+                            break;
+                        case MenuManager::Result::Exit:
+                            window.close();
+                            return;
+                            break;
+                        }
+                    }
+                }
 
                 sf::Event event;
                 while (window.pollEvent(event))
