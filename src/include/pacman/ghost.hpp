@@ -8,7 +8,7 @@
 #include <pacman/ghostAnimations.hpp>
 #include <vector>
 
-enum class AnimationStatus {Left, Right};
+enum class AnimationStatus {Left, Right, DiedLeft, DiedRight, Scared};
 
 class Ghost
 {

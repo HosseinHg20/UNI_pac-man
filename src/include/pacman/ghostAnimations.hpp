@@ -24,6 +24,30 @@ public:
         setenable(true);
     }
 };
+class ScaredAnimation : public Animation
+{
+public:
+    ScaredAnimation(sf::RectangleShape & shape) : Animation(&shape, "./images/ghosts_scared.png", 0.1)
+    {
+        setenable(true);
+    }
+};
+class RightDiedAnimation : public Animation
+{
+public:
+    RightDiedAnimation(sf::RectangleShape & shape) : Animation(&shape, "./images/eye_r.png", 0.1)
+    {
+        setenable(true);
+    }
+};
+class LeftDiedAnimation : public Animation
+{
+public:
+    LeftDiedAnimation(sf::RectangleShape & shape) : Animation(&shape, "./images/eye_l.png", 0.1)
+    {
+        setenable(true);
+    }
+};
 
 
 #endif // GHOSTANIMATION_HPP

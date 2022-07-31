@@ -29,6 +29,15 @@ void Ghost::changeAnimationStatus(AnimationStatus a)
     case AnimationStatus::Right:
         animation = new RightAnimation(ghost);
         break;
+    case AnimationStatus::Scared:
+        animation = new ScaredAnimation(ghost);
+        break;
+    case AnimationStatus::DiedRigh:
+        animation = new RightDiedAnimation(ghost);
+        break;
+    case AnimationStatus::DiedLeft:
+        animation = new LeftDiedAnimation(ghost);
+        break;
     }
 
     animationStatus = a;
