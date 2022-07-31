@@ -30,6 +30,7 @@ public:
     int subHP();
     
     void restart(bool map, bool hp, bool score);
+    void backToHome();
 };
 
 #endif // PACMAN_HPP

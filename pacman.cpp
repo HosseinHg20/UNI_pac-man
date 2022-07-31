@@ -82,3 +82,9 @@ void Pacman::restart(bool m, bool h, bool s)
     if (s)
         score = 0;
 }
+
+void Pacman::backToHome()
+{
+    pacman.setPosition(336, 624);
+    rotate(DIRECTION::RIGHT);
+}
