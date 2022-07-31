@@ -25,6 +25,13 @@ public:
         for (int i = 0; i < ghost.size(); i++)
             window.draw(ghost[i]->getShape());
     }
+    int accident(sf::RectangleShape shape)
+    {
+        for (int i = 0; i < ghost.size(); i++)
+            if (shape.getGlobalBounds().intersects(ghost[i]->getShape().getGlobalBounds()))
+                return i + 1;
+        return 0;
+    }
     ~GhostManager()
     {
         for (int i = 0; i < ghost.size(); i++)
