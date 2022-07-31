@@ -1,6 +1,6 @@
 #include <pacman/ghost.hpp>
 
-Ghost::Ghost(Map & m, float s) : ghost(sf::Vector2f(28, 28))
+Ghost::Ghost(Map & m, float s) : ghost(sf::Vector2f(29, 29))
                                 , map(m)
                                 , move(map, ghost, s)
 {

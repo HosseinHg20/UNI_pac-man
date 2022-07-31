@@ -16,7 +16,7 @@ private:
     sf::Time time;
     _DIRECTION _direction = _DIRECTION::UP;
     sf::Vector2f lastMove;
-    float stepSize = 4.0;
+    float stepSize = 3.0;
     bool enable = true;
 public:
     RandomizeMove(Map & map, sf::RectangleShape & shape, float time);

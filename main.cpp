@@ -54,7 +54,7 @@ int main()
     // GhostsManager ghosts(map);
     // Ghost ghost(map, 0.01);
     GhostManager ghosts;
-    ghosts.addGhost(map);
+    ghosts.addGhost(map); 
 
     while (window.isOpen())
     {    
@@ -126,6 +126,10 @@ int main()
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
                     {
                         pacmann.rotate(DIRECTION::DOWN);
+                    }
+                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+                    {
+                        ghosts.addGhost(map);
                     }
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
                     {
