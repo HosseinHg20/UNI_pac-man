@@ -14,11 +14,13 @@
 int main()
 {
     srand(time(0));
-    
     int width = 672;
     int height = 672;
     sf::RenderWindow window(sf::VideoMode(width, height + 56), "SFML works!");
     window.setFramerateLimit(60);
+
+    // sf::Joystick::Identification JSid = sf::Joystick::getIdentification(0);
+    // sf::String controller("Joystick Use: " + JSid.name);
     
     MenuManager::Result result = MenuManager::startMenu(window);
     switch (result)
@@ -125,19 +127,19 @@ int main()
                     if (event.type == sf::Event::Closed)
                         window.close();
 
-                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Joystick::getAxisPosition(0, sf::Joystick::X) < -0.9)
                     {
                         pacmann.rotate(DIRECTION::LEFT);
                     }
-                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Joystick::getAxisPosition(0, sf::Joystick::Y) < -0.9)
                     {
                         pacmann.rotate(DIRECTION::UP);
                     }
-                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Joystick::getAxisPosition(0, sf::Joystick::X) > 0.9)
                     {
                         pacmann.rotate(DIRECTION::RIGHT);
                     }
-                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Joystick::getAxisPosition(0, sf::Joystick::Y) > 0.9)
                     {
                         pacmann.rotate(DIRECTION::DOWN);
                     }
