@@ -14,13 +14,13 @@ private:
     sf::RectangleShape rightTeleport;
     sf::RectangleShape door;
     sf::Time _time;
+    sf::Clock _clock;
     int h_block;
     int w_block;
     int foodCounter = 0;
     int visibleFoods = 0;
 public:
     int specialFoodNumber = -1;
-    sf::Clock _clock;
     Map(int h, int w);
     void draw(sf::RenderWindow & window);
     int accident(sf::RectangleShape & shape, bool ghost = false);

@@ -17,7 +17,7 @@ private:
 public:
     Animation(sf::Shape * sh, std::string s, float second);
 
-    void addTextur(std::string s);
+    void addTexture(std::string s);
     void update();
     void setenable(bool en);
 };

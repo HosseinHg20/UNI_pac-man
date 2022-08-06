@@ -12,22 +12,17 @@ void fd::Food::change(Type t)
     switch (type)
     {
     case Type::Normal:
-        // setOrigin(2, 2);
         setRadius(4);
         setTexture(NULL);
         setFillColor(sf::Color::White);
         break;
     case Type::Strength:
-        // setOrigin(4, 4);
         setRadius(8);
-        // move(-2, -2);
         setTexture(NULL);
         setFillColor(sf::Color::White);
         break;
     case Type::Apple:
-        // setOrigin(6, 6);
         setRadius(12);
-        // move(-4, -4);
         setTexture(&txtapple);
         break;
     }

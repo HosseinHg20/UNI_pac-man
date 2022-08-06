@@ -26,7 +26,6 @@ public:
     void back();
     void setRotate(DIRECTION dir);
     void setenable(bool en);
-    void changeDirection(DIRECTION dir);
 };
 
 #endif // MOVE_HPP

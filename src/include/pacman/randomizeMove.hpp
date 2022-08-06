@@ -18,14 +18,14 @@ private:
     sf::Vector2f lastMove;
     float stepSize = 3.0;
     bool enable = true;
+    void back();
+    std::vector<_DIRECTION> checkRotation();
+    _DIRECTION rotate();
 public:
     RandomizeMove(Map & map, sf::RectangleShape & shape, float time);
     ~RandomizeMove();
 
     _DIRECTION step();
-    void back();
-    std::vector<_DIRECTION> checkRotation();
-    _DIRECTION rotate();
 };
 
 

@@ -99,8 +99,3 @@ void Move::setenable(bool en)
 {
     enable = en;
 }
-
-void Move::changeDirection(DIRECTION dir)
-{
-    changeDirectionTo = dir;
-}

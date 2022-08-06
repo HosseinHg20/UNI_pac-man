@@ -7,11 +7,11 @@ Pacman::Pacman(Map & m, float speed, int r) : pacman(sf::Vector2f(r * 2 - 2, r *
 {
     pacman.setOrigin(r - 1, r - 1);
     pacman.setPosition(336, 624);
-    animation.addTextur("./images/pacman2.png");
-    animation.addTextur("./images/pacman3.png");
-    animation.addTextur("./images/pacman4.png");
-    animation.addTextur("./images/pacman5.png");
-    animation.addTextur("./images/pacman6.png");
+    animation.addTexture("./images/pacman2.png");
+    animation.addTexture("./images/pacman3.png");
+    animation.addTexture("./images/pacman4.png");
+    animation.addTexture("./images/pacman5.png");
+    animation.addTexture("./images/pacman6.png");
 }
 
 

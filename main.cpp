@@ -13,15 +13,16 @@
 
 int main()
 {
+    // set time for random numbers
     srand(time(0));
+
+    // a window for all of game
     int width = 672;
     int height = 672;
     sf::RenderWindow window(sf::VideoMode(width, height + 56), "SFML works!");
     window.setFramerateLimit(60);
 
-    // sf::Joystick::Identification JSid = sf::Joystick::getIdentification(0);
-    // sf::String controller("Joystick Use: " + JSid.name);
-    
+    // start menu was called
     MenuManager::Result result = MenuManager::startMenu(window);
     switch (result)
     {
@@ -30,6 +31,7 @@ int main()
         break;
     }
 
+    // this shapes can show hp to player bottom the window
     sf::Texture hp;
     hp.loadFromFile("./images/pacman2.png");
     sf::CircleShape hp1(16);
@@ -42,6 +44,7 @@ int main()
     hp3.setTexture(&hp);
     hp3.setPosition(width - 48, height + 10);
 
+    // this text can show score to player bottom the window
     sf::Font font;
     if (!font.loadFromFile("./fonts/arial.ttf"))
         return 0;
@@ -50,17 +53,20 @@ int main()
     txtscore.setFont(font);
     txtscore.setPosition(10, height + 10);
 
+    // making a map
     Map map(height, width);
+
+    // making a pacman
     Pacman pacmann(map, 0.01, height / 42);
 
-    // GhostsManager ghosts(map);
-    // Ghost ghost(map, 0.01);
+    // making a ghostManager and adding four ghost to it
     GhostManager ghosts(map);
     ghosts.addGhost(); 
     ghosts.addGhost(); 
     ghosts.addGhost(); 
     ghosts.addGhost(); 
 
+    // main loop
     while (window.isOpen())
     {    
         sf::Clock clock;
@@ -68,6 +74,7 @@ int main()
         [&]{
             while (window.isOpen())
             {
+                // check the completion of the level
                 if (map.getVisibleFoods() <= 0)
                 {
                     pacmann.restart(true, false, false);
@@ -78,19 +85,23 @@ int main()
                     return;
                 }
 
+                // check the collision
                 int acc = map.accident(pacmann.getShape());
+                // collision (pacman vs wall)
                 if (acc > 0)
                 {
                     pacmann.back();
                 }
+                // collision (pacman vs foods)
                 else if (acc < 0)
                 {
                     pacmann.scorePlus(-acc);
-                    // window.setTitle(std::to_string(acc));
                     if (acc == -50)
                         ghosts.setScare();
                 }
+                // check the collision (pacman vs ghost)
                 acc = ghosts.accident(pacmann.getShape());
+                // collision (normal ghost vs pacman)
                 if (acc > 0)
                 {
                     pacmann.backToHome();
@@ -114,6 +125,7 @@ int main()
                         }
                     }
                 }
+                // collision (scared ghost vs pacman)
                 else if (acc < 0)
                 {
                     ghosts.backToHome(-acc);
@@ -121,6 +133,7 @@ int main()
 
                 }
 
+                // check input events
                 sf::Event event;
                 while (window.pollEvent(event))
                 {
@@ -143,10 +156,6 @@ int main()
                     {
                         pacmann.rotate(DIRECTION::DOWN);
                     }
-                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
-                    {
-                        ghosts.addGhost();
-                    }
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
                     {
                         result = MenuManager::stopMenu(window);
@@ -167,22 +176,18 @@ int main()
                     }
                 }
 
+                
                 pacmann.update();
-                // ghost.update();
                 ghosts.update();
 
                 txtscore.setString("score : " + std::to_string(pacmann.getScore()));
 
-                window.setTitle(std::to_string(map.getFoodCounter()) + ", " + std::to_string(map._clock.getElapsedTime().asSeconds())
-                                + ", " +/* std::to_string(highestScore) + ", " +*/ std::to_string(map.getVisibleFoods()) + ", " + std::to_string(map.specialFoodNumber));
                 if (map.getFoodCounter() == 70 || map.getFoodCounter() == 170)
                     map.setRandomFood(fd::Type::Apple);
                 map.checkSpecoalFood();
 
 
                 window.clear();
-                // ghosts.draw(window);
-                // window.draw(ghost.getShape());
                 ghosts.draw(window);
                 map.draw(window);
                 window.draw(pacmann.getShape());
@@ -193,7 +198,6 @@ int main()
                 if (pacmann.getHP() > 2)
                     window.draw(hp1);
                 window.draw(txtscore);
-                // mainMenu.draw(window);
                 window.display();
             }
         }();

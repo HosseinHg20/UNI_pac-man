@@ -5,13 +5,13 @@ Animation::Animation(sf::Shape * sh, std::string s, float t)
     // setenable(true);
     shape = sh;
     time = sf::seconds(t);
-    addTextur(s);
+    addTexture(s);
     // update();
     // setenable(false);
     sh->setTexture(&frames[0]);
 }
 
-void Animation::addTextur(std::string s)
+void Animation::addTexture(std::string s)
 {
     sf::Texture t;
     if (!t.loadFromFile(s))
